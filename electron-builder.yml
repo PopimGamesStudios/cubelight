@@ -1,0 +1,79 @@
+appId: org.cubelight.launcher
+productName: Cubelight
+copyright: Copyright © 2026 Cubelight Contributors
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - package.json
+
+extraResources:
+  - from: build/tray.png
+    to: tray.png
+  - from: build/icon.png
+    to: icon.png
+
+asar: true
+
+artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+  icon: build/icon.ico
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Cubelight
+  runAfterFinish: true
+  deleteAppDataOnUninstall: false
+  uninstallDisplayName: Cubelight ${version}
+  artifactName: Cubelight-Setup-${version}.${ext}
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+
+portable:
+  artifactName: Cubelight-${version}-portable.${ext}
+  requestExecutionLevel: user
+
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+  icon: build/icon.png
+  category: public.app-category.games
+  identity: null
+
+dmg:
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]
+  icon: build/icon.png
+  category: Game
+  maintainer: Cubelight Contributors
+  synopsis: Modern open-source Minecraft launcher
+  description: A modern, open-source Minecraft launcher with Modrinth and CurseForge built in.
+
+publish:
+  provider: github
+  owner: PopimGamesStudios
+  repo: cubelight
+  releaseType: release
+
+generateUpdatesFilesForAllChannels: true

@@ -1,0 +1,84 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    # One platform at a time so the release and its update manifests are not
+    # created by two runners at once.
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - os: windows-latest
+            args: --win
+          - os: macos-latest
+            args: --mac
+          - os: ubuntu-latest
+            args: --linux
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # macOS builds are unsigned unless you add a Developer ID certificate.
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify tag matches package version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          node -e "
+            const version = require('./package.json').version;
+            const tag = process.env.GITHUB_REF_NAME.replace(/^v/, '');
+            if (version !== tag) {
+              console.error('package.json version ' + version + ' does not match tag ' + tag);
+              process.exit(1);
+            }
+          "
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build renderer and main process
+        run: npm run build
+
+      - name: Package and publish
+        run: npx electron-builder ${{ matrix.args }} --publish always
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cubelight-${{ matrix.os }}
+          path: |
+            release/*.exe
+            release/*.dmg
+            release/*.AppImage
+            release/*.yml
+            release/*.blockmap
+          if-no-files-found: ignore
+          retention-days: 14
