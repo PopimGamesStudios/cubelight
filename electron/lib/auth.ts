@@ -161,7 +161,7 @@ export function getPublicAccount(): PublicAccount | null {
 export function setOfflineAccount(name: string): PublicAccount {
   const trimmed = name.trim();
   if (!/^[A-Za-z0-9_]{3,16}$/.test(trimmed)) {
-    throw new Error("Offline usernames must be 3–16 characters using letters, numbers or underscores.");
+    throw new Error("Offline usernames must be 3-16 characters using letters, numbers or underscores.");
   }
   const account: StoredAccount = { mode: "offline", name: trimmed, uuid: offlineUuid(trimmed) };
   writeStored(account);

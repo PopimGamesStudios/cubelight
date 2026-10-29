@@ -1,7 +1,7 @@
 {
   "name": "cubelight",
   "productName": "Cubelight",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modern, open-source Minecraft launcher with Modrinth and CurseForge built in.",
   "author": "Cubelight Contributors",
   "license": "MIT",

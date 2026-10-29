@@ -79,7 +79,6 @@ export interface Instance {
   versionId?: string;
   kind: InstanceKind;
   color: string;
-  icon: string;
   memoryMb: number;
   javaPath?: string;
   createdAt: number;
@@ -96,7 +95,6 @@ export interface CreateInstanceInput {
   kind: InstanceKind;
   memoryMb: number;
   color: string;
-  icon: string;
 }
 
 export interface GameVersion {

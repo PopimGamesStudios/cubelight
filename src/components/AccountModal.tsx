@@ -146,7 +146,7 @@ export function AccountModal() {
         <div className="account-panel">
           <Field
             label="Username"
-            hint="3–16 characters, letters, numbers or underscores. Offline profiles can play singleplayer and offline servers."
+            hint="3-16 characters, letters, numbers or underscores. Offline profiles can play singleplayer and offline servers."
           >
             <input
               className="input"

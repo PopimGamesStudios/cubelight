@@ -19,7 +19,9 @@ import type { InstalledMod, ModProvider, ModSearchResult, ModType, ModVersionInf
 import { api, errorMessage } from "@/lib/api";
 import {
   classNames,
+  contrastInk,
   formatNumber,
+  initials,
   loaderLabel,
   modTypeLabel,
   providerLabel,
@@ -473,8 +475,8 @@ export function ModsPage() {
             {target ? (
               <>
                 <div className="target-summary">
-                  <span className="target-icon" style={{ background: target.color }}>
-                    {target.icon}
+                  <span className="target-icon" style={{ background: target.color, color: contrastInk(target.color) }}>
+                    {initials(target.name)}
                   </span>
                   <div className="target-copy">
                     <strong>

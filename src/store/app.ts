@@ -22,7 +22,7 @@ import { deepMerge } from "@/lib/merge";
 import { applyAppearance } from "@/lib/theme";
 
 export type ToastTone = "info" | "success" | "error";
-export type SettingsTab = "appearance" | "launch" | "integrations" | "updates" | "about";
+export type SettingsTab = "appearance" | "launch" | "integrations" | "updates" | "about" | "terms" | "privacy";
 
 export interface Toast {
   id: number;

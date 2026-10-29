@@ -1,6 +1,6 @@
 # Cubelight
 
-A modern, open-source Minecraft launcher for Windows, macOS and Linux. Instances, mods, plugins and Java runtimes in one place, with Modrinth and CurseForge built in.
+An open-source Minecraft launcher for Windows, macOS and Linux. Cubelight creates isolated instances, installs Minecraft with a matching Java runtime, and pulls mods, plugins, resource packs and shaders from Modrinth and CurseForge.
 
 [![CI](https://github.com/PopimGamesStudios/cubelight/actions/workflows/ci.yml/badge.svg)](https://github.com/PopimGamesStudios/cubelight/actions/workflows/ci.yml)
 [![Latest release](https://img.shields.io/github/v/release/PopimGamesStudios/cubelight?label=download)](https://github.com/PopimGamesStudios/cubelight/releases/latest)
@@ -12,14 +12,14 @@ A modern, open-source Minecraft launcher for Windows, macOS and Linux. Instances
 
 ## Features
 
-- **Instances** — client instances (Vanilla, Fabric, Forge, NeoForge) and server instances (folder-only, with `mods/` and `plugins/`), each with its own game directory.
-- **Automatic runtime setup** — Minecraft versions, libraries, assets and a matching Temurin Java runtime are downloaded and verified on first launch.
-- **Modrinth + CurseForge** — search, filter and install mods, plugins, resource packs and shaders straight into the right instance folder. Dependency-aware installs and update checks.
-- **Accounts** — offline profiles work instantly; Microsoft accounts use the device-code flow and refresh tokens are encrypted with the OS keychain.
-- **Tray & startup** — close to tray, start minimized, launch at login, minimize the launcher when a game starts.
-- **Deep appearance settings** — theme presets, custom accent/background/surface/text colors, UI and display fonts, base font size, UI scale, corner radius, density, background pattern and a collapsible sidebar.
-- **Auto-updates** — packaged builds update themselves from GitHub Releases through `electron-updater`.
-- **Logs** — per-instance launch logs with copy-to-clipboard and file reveal.
+- **Instances**: client instances (Vanilla, Fabric, Forge, NeoForge) and server instances (folder-only, with `mods/` and `plugins/`), each with its own game directory.
+- **Automatic runtime setup**: Minecraft versions, libraries, assets and a matching Temurin Java runtime are downloaded and verified on first launch.
+- **Modrinth + CurseForge**: search, filter and install mods, plugins, resource packs and shaders straight into the right instance folder. Dependency-aware installs and update checks.
+- **Accounts**: offline profiles work instantly; Microsoft accounts use the device-code flow and refresh tokens are encrypted with the OS keychain.
+- **Tray and startup**: close to tray, start minimized, launch at login, minimize the launcher when a game starts.
+- **Deep appearance settings**: theme presets, custom accent/background/surface/text colors, UI and display fonts, base font size, UI scale, corner radius, density, background pattern and a collapsible sidebar.
+- **Auto-updates**: packaged builds update themselves from GitHub Releases through `electron-updater`.
+- **Logs**: per-instance launch logs with copy-to-clipboard and file reveal.
 
 ## Download
 
@@ -32,12 +32,12 @@ The download page lists every release and its files:
 | Windows | `Cubelight-Setup-<version>.exe` | Installer with desktop and Start Menu shortcuts |
 | Windows | `Cubelight-<version>-portable.exe` | Single file, no installation |
 | macOS | `Cubelight-<version>-<arch>.dmg` | Unsigned by default |
-| Linux | `Cubelight-<version>-linux-x86_64.AppImage` | — |
+| Linux | `Cubelight-<version>-linux-x86_64.AppImage` | Not yet code signed |
 
 Direct link to the current Windows installer:
 
 ```
-https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.0.exe
+https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.1.exe
 ```
 
 Step-by-step Windows instructions, including the SmartScreen prompt and uninstall, are in [INSTALL.md](INSTALL.md).
@@ -58,7 +58,7 @@ npm run pack       # unpacked app in release/
 npm run dist:win   # Windows installer in release/
 ```
 
-`npm run dev:web` renders the interface with `src/lib/mock.ts` when `window.cubelight` is missing. It is a UI playground only — the real filesystem, Modrinth, CurseForge, Java and update code lives in `electron/`.
+`npm run dev:web` renders the interface with `src/lib/mock.ts` when `window.cubelight` is missing. It is a UI playground only; the real filesystem, Modrinth, CurseForge, Java and update code lives in `electron/`.
 
 ### Project layout
 
@@ -148,6 +148,13 @@ Settings, accounts and instance metadata live there; game files live under `inst
 - Microsoft refresh tokens are encrypted with Electron `safeStorage` when the OS keychain is available.
 - `contextIsolation` and `sandbox` are enabled and remote content is never loaded inside the app window.
 - CurseForge API keys are stored as plain text in the settings file, because the app needs the raw key to sign requests. Treat that file as a secret.
+
+## Legal
+
+- [Terms & Conditions](docs/terms.md)
+- [Privacy Policy](docs/privacy.md)
+
+The same documents are available in the application under **Settings, Terms** and **Settings, Privacy**.
 
 ## License
 

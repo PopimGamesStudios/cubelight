@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import type { Instance } from "@shared/types";
 import { api } from "@/lib/api";
-import { classNames, contrastInk, formatMemory, loaderLabel, timeAgo } from "@/lib/format";
+import { classNames, contrastInk, formatMemory, initials, loaderLabel, timeAgo } from "@/lib/format";
 import { useApp } from "@/store/app";
 import { Button, Chip, IconButton, ProgressBar, Spinner } from "./ui";
 
@@ -62,7 +62,7 @@ export function InstanceCard({ instance, compact, onEdit, onDelete, onLogs }: In
           className="instance-icon"
           style={{ background: instance.color, color: contrastInk(instance.color) }}
         >
-          {instance.icon}
+          {initials(instance.name)}
         </span>
         <div className="instance-heading">
           <div className="instance-name-row">

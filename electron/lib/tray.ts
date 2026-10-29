@@ -77,7 +77,7 @@ export function createTray(nextOptions: TrayOptions): void {
   options = nextOptions;
   const image = nativeImage.createFromPath(iconPath());
   tray = new Tray(image.isEmpty() ? nativeImage.createEmpty() : image);
-  tray.setToolTip("Cubelight — open-source Minecraft launcher");
+  tray.setToolTip("Cubelight, open-source Minecraft launcher");
   tray.setContextMenu(buildMenu());
   tray.on("click", () => {
     if (options?.isVisible()) options.hideWindow();

@@ -64,7 +64,6 @@ export function createInstance(input: CreateInstanceInput): Instance {
     loader: input.loader,
     kind: input.kind === "server" ? "server" : "client",
     color: /^#[0-9a-fA-F]{6}$/.test(input.color) ? input.color : COLORS[0],
-    icon: input.icon || (input.kind === "server" ? "▤" : "◆"),
     memoryMb: Math.min(32768, Math.max(512, Math.round(input.memoryMb || 4096))),
     createdAt: Date.now(),
     installed: input.kind === "server",
@@ -91,7 +90,6 @@ export function updateInstance(id: string, patch: DeepPartial<Instance>): Instan
   if (typeof patch.loaderVersion === "string") next.loaderVersion = patch.loaderVersion;
   if (typeof patch.versionId === "string") next.versionId = patch.versionId;
   if (typeof patch.color === "string" && /^#[0-9a-fA-F]{6}$/.test(patch.color)) next.color = patch.color;
-  if (typeof patch.icon === "string") next.icon = patch.icon.slice(0, 8);
   if (typeof patch.memoryMb === "number") next.memoryMb = Math.min(32768, Math.max(512, Math.round(patch.memoryMb)));
   if (typeof patch.javaPath === "string") next.javaPath = patch.javaPath;
   if (typeof patch.lastPlayed === "number") next.lastPlayed = patch.lastPlayed;

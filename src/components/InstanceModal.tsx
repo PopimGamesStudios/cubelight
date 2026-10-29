@@ -2,11 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { Monitor, Server } from "lucide-react";
 import type { GameVersion, Instance, InstanceKind, LoaderType } from "@shared/types";
 import { api, errorMessage } from "@/lib/api";
-import { classNames, contrastInk, formatMemory } from "@/lib/format";
+import { classNames, contrastInk, formatMemory, initials } from "@/lib/format";
 import { useApp } from "@/store/app";
 import { Button, Field, Modal, Segmented, Select, Slider, Toggle } from "./ui";
 
-const ICONS = ["◆", "▣", "▤", "✦", "▲", "●", "⬢", "⚡"];
 const COLORS = ["#c8ff3d", "#4f8cff", "#ff6b3d", "#a78bfa", "#5eead4", "#f472b6", "#facc15", "#94a3b8"];
 const FALLBACK_VERSIONS = ["1.21.5", "1.21.4", "1.21.1", "1.20.6", "1.20.1", "1.19.2", "1.18.2", "1.16.5", "1.12.2", "1.8.9"];
 
@@ -24,7 +23,6 @@ export function InstanceModal({ open, instance, onClose }: InstanceModalProps) {
 
   const editing = Boolean(instance);
   const [name, setName] = useState("");
-  const [icon, setIcon] = useState(ICONS[0]);
   const [color, setColor] = useState(COLORS[0]);
   const [kind, setKind] = useState<InstanceKind>("client");
   const [loader, setLoader] = useState<LoaderType>("fabric");
@@ -42,7 +40,6 @@ export function InstanceModal({ open, instance, onClose }: InstanceModalProps) {
     setBusy(false);
     if (instance) {
       setName(instance.name);
-      setIcon(instance.icon);
       setColor(instance.color);
       setKind(instance.kind);
       setLoader(instance.loader);
@@ -50,7 +47,6 @@ export function InstanceModal({ open, instance, onClose }: InstanceModalProps) {
       setMemory(instance.memoryMb);
     } else {
       setName("");
-      setIcon(ICONS[0]);
       setColor(COLORS[0]);
       setKind("client");
       setLoader("fabric");
@@ -97,12 +93,11 @@ export function InstanceModal({ open, instance, onClose }: InstanceModalProps) {
     setBusy(true);
     try {
       if (instance) {
-        await updateInstance(instance.id, { name: trimmed, icon, color, memoryMb: memory });
+        await updateInstance(instance.id, { name: trimmed, color, memoryMb: memory });
       } else {
         await createInstance(
           {
             name: trimmed,
-            icon,
             color,
             kind,
             loader: kind === "server" ? "vanilla" : loader,
@@ -140,7 +135,7 @@ export function InstanceModal({ open, instance, onClose }: InstanceModalProps) {
     >
       <div className="instance-preview">
         <span className="instance-preview-icon" style={{ background: color, color: contrastInk(color) }}>
-          {icon}
+          {initials(name.trim() || "New instance")}
         </span>
         <div className="instance-preview-copy">
           <strong>{name.trim() || "Untitled instance"}</strong>
@@ -233,24 +228,7 @@ export function InstanceModal({ open, instance, onClose }: InstanceModalProps) {
           </div>
         </Field>
 
-        <Field label="Icon">
-          <div className="icon-picker">
-            {ICONS.map((symbol) => (
-              <button
-                key={symbol}
-                type="button"
-                className={classNames("icon-choice", symbol === icon && "is-active")}
-                onClick={() => setIcon(symbol)}
-                aria-label={`Icon ${symbol}`}
-                aria-pressed={symbol === icon}
-              >
-                {symbol}
-              </button>
-            ))}
-          </div>
-        </Field>
-
-        <Field label="Accent">
+        <Field label="Accent" className="span-2">
           <div className="color-picker">
             {COLORS.map((value) => (
               <button

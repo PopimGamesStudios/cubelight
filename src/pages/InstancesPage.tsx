@@ -109,7 +109,7 @@ export function InstancesPage() {
           ariaLabel="Sort instances"
           options={[
             { value: "recent", label: "Recently played" },
-            { value: "name", label: "Name A–Z" },
+            { value: "name", label: "Name A-Z" },
             { value: "created", label: "Newest" },
             { value: "memory", label: "Most memory" },
           ]}

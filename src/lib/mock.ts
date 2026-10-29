@@ -105,7 +105,6 @@ let mockInstances: Instance[] = [
     versionId: "fabric-loader-0.16.9-1.21.1",
     kind: "client",
     color: "#c8ff3d",
-    icon: "◆",
     memoryMb: 6144,
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 42,
     lastPlayed: Date.now() - 1000 * 60 * 48,
@@ -125,7 +124,6 @@ let mockInstances: Instance[] = [
     loader: "vanilla",
     kind: "client",
     color: "#4f8cff",
-    icon: "▣",
     memoryMb: 4096,
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 12,
     lastPlayed: Date.now() - 1000 * 60 * 60 * 30,
@@ -139,7 +137,6 @@ let mockInstances: Instance[] = [
     loader: "vanilla",
     kind: "server",
     color: "#ff6b3d",
-    icon: "▤",
     memoryMb: 4096,
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 6,
     installed: true,
@@ -622,7 +619,6 @@ export const mockApi: CubelightApi = {
         loader: input.loader,
         kind: input.kind,
         color: input.color,
-        icon: input.icon,
         memoryMb: input.memoryMb,
         createdAt: Date.now(),
         installed: input.kind === "server",
@@ -802,7 +798,7 @@ export const mockApi: CubelightApi = {
     offline: async (name) => {
       const trimmed = name.trim();
       if (!/^[A-Za-z0-9_]{3,16}$/.test(trimmed)) {
-        throw new Error("Offline usernames must be 3–16 characters using letters, numbers or underscores.");
+        throw new Error("Offline usernames must be 3-16 characters using letters, numbers or underscores.");
       }
       mockAccount = { mode: "offline", name: trimmed, uuid: "8f4e8f6e-3a7b-3b1a-9c2e-6a0f0b6c1d2e" };
       listeners.account.forEach((callback) => callback(mockAccount));

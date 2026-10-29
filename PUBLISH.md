@@ -16,7 +16,7 @@ Change all three if you publish elsewhere, then rebuild.
 
 - Name: `cubelight`
 - Visibility: **Public** (the updater fetches releases anonymously)
-- Do not add a README, .gitignore or license — the repo must start empty
+- Do not add a README, .gitignore or license. The repo must start empty
 
 ## 2. Push the code
 
@@ -26,14 +26,14 @@ git remote add origin https://github.com/PopimGamesStudios/cubelight.git
 git push -u origin main
 ```
 
-If Git Credential Manager opens a browser window, sign in and approve — the previously saved
+If Git Credential Manager opens a browser window, sign in and approve. The previously saved
 token has expired.
 
 ## 3. Publish the first release
 
 ```powershell
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.0.1
+git push origin v1.0.1
 ```
 
 The tag triggers `.github/workflows/release.yml`, which builds Windows, macOS and Linux and
@@ -44,19 +44,19 @@ run takes about 10 minutes.
 ## Manual release (no Actions)
 
 1. Push the code as above.
-2. Open **Releases → Draft a new release**, tag `v1.0.0`.
+2. Open **Releases → Draft a new release**, tag `v1.0.1`.
 3. Upload from `release/`:
-   - `Cubelight-Setup-1.0.0.exe`
-   - `Cubelight-Setup-1.0.0.exe.blockmap`
+   - `Cubelight-Setup-1.0.1.exe`
+   - `Cubelight-Setup-1.0.1.exe.blockmap`
    - `latest.yml`
-   - `Cubelight-1.0.0-portable.exe`
+   - `Cubelight-1.0.1-portable.exe`
 4. Publish it. It must not stay a draft, or auto-update cannot see it.
 
 ## Resulting links
 
 ```
 https://github.com/PopimGamesStudios/cubelight/releases/latest
-https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.0.exe
+https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.1.exe
 ```
 
 ## Later releases

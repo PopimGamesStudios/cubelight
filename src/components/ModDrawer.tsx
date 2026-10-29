@@ -10,11 +10,13 @@ import {
 import type { ModSearchResult, ModVersionInfo } from "@shared/types";
 import { api, errorMessage } from "@/lib/api";
 import {
+  contrastInk,
   formatBytes,
   formatDate,
   formatNumber,
   loaderLabel,
   modTypeLabel,
+  initials,
   providerLabel,
   timeAgo,
 } from "@/lib/format";
@@ -158,7 +160,7 @@ export function ModDrawer({ mod, onClose }: ModDrawerProps) {
             </div>
             <div>
               <span>Followers</span>
-              <strong>{mod.followers ? formatNumber(mod.followers) : "—"}</strong>
+              <strong>{mod.followers ? formatNumber(mod.followers) : "-"}</strong>
             </div>
             <div>
               <span>Updated</span>
@@ -184,8 +186,8 @@ export function ModDrawer({ mod, onClose }: ModDrawerProps) {
 
             {target ? (
               <div className="target-card">
-                <span className="target-icon" style={{ background: target.color }}>
-                  {target.icon}
+                <span className="target-icon" style={{ background: target.color, color: contrastInk(target.color) }}>
+                  {initials(target.name)}
                 </span>
                 <div className="target-copy">
                   <strong>{target.name}</strong>

@@ -6,11 +6,13 @@ import {
   ExternalLink,
   Eye,
   EyeOff,
+  FileText,
   FolderOpen,
   Github,
   Globe,
   Info,
   KeyRound,
+  Lock,
   Palette,
   Plug,
   RefreshCw,
@@ -39,7 +41,9 @@ import {
   shortPath,
 } from "@/lib/format";
 import { useApp, type SettingsTab } from "@/store/app";
+import { PRIVACY, TERMS } from "@/lib/legal";
 import { Logo } from "@/components/Logo";
+import { LegalDocumentView } from "@/components/LegalDocument";
 import {
   Button,
   Chip,
@@ -58,6 +62,8 @@ const TABS: Array<{ id: SettingsTab; label: string; icon: typeof Palette }> = [
   { id: "integrations", label: "Integrations", icon: Plug },
   { id: "updates", label: "Updates", icon: RefreshCw },
   { id: "about", label: "About", icon: Info },
+  { id: "terms", label: "Terms", icon: FileText },
+  { id: "privacy", label: "Privacy", icon: Lock },
 ];
 
 export function SettingsPage() {
@@ -103,6 +109,16 @@ export function SettingsPage() {
           {tab === "integrations" ? <IntegrationsSection /> : null}
           {tab === "updates" ? <UpdatesSection /> : null}
           {tab === "about" ? <AboutSection /> : null}
+          {tab === "terms" ? (
+            <div className="settings-section">
+              <LegalDocumentView document={TERMS} />
+            </div>
+          ) : null}
+          {tab === "privacy" ? (
+            <div className="settings-section">
+              <LegalDocumentView document={PRIVACY} />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
@@ -824,7 +840,7 @@ function IntegrationsSection() {
             Azure app registrations <ArrowUpRight size={12} />
           </button>
           <span className="inline-note">
-            Redirect URI is not required — Cubelight uses the device code flow.
+            No redirect URI is required. Cubelight uses the device code flow.
           </span>
         </div>
       </Panel>
@@ -999,6 +1015,7 @@ function UpdatesSection() {
 function AboutSection() {
   const appInfo = useApp((state) => state.appInfo);
   const resetSettings = useApp((state) => state.resetSettings);
+  const openSettings = useApp((state) => state.openSettings);
   const [confirmReset, setConfirmReset] = useState(false);
   const [resetBusy, setResetBusy] = useState(false);
 
@@ -1036,16 +1053,16 @@ function AboutSection() {
         <div className="about-grid">
           <div className="about-kv">
             <span>Version</span>
-            <strong>{appInfo?.version ?? "—"}</strong>
+            <strong>{appInfo?.version ?? "Unknown"}</strong>
           </div>
           <div className="about-kv">
             <span>Electron</span>
-            <strong>{appInfo?.electron ?? "—"}</strong>
+            <strong>{appInfo?.electron ?? "Unknown"}</strong>
           </div>
           <div className="about-kv">
             <span>Platform</span>
             <strong>
-              {appInfo ? `${appInfo.platform} · ${appInfo.arch}` : "—"}
+              {appInfo ? `${appInfo.platform} · ${appInfo.arch}` : "Unknown"}
             </strong>
           </div>
           <div className="about-kv">
@@ -1057,7 +1074,7 @@ function AboutSection() {
         <div className="about-path">
           <div>
             <span>Data directory</span>
-            <code>{appInfo?.dataDir ?? "—"}</code>
+            <code>{appInfo?.dataDir ?? "Not available"}</code>
           </div>
           <Button
             variant="outline"
@@ -1102,6 +1119,22 @@ function AboutSection() {
             <span>
               <strong>Modrinth</strong>
               <small>mods, plugins, packs and shaders</small>
+            </span>
+            <ArrowUpRight size={14} />
+          </button>
+          <button type="button" className="link-card" onClick={() => openSettings("terms")}>
+            <FileText size={18} />
+            <span>
+              <strong>Terms &amp; Conditions</strong>
+              <small>Effective {TERMS.effective}</small>
+            </span>
+            <ArrowUpRight size={14} />
+          </button>
+          <button type="button" className="link-card" onClick={() => openSettings("privacy")}>
+            <Lock size={18} />
+            <span>
+              <strong>Privacy Policy</strong>
+              <small>What is stored and what is sent</small>
             </span>
             <ArrowUpRight size={14} />
           </button>

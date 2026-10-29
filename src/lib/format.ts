@@ -11,7 +11,7 @@ export function formatNumber(value: number): string {
 }
 
 export function formatBytes(bytes?: number): string {
-  if (!bytes || bytes <= 0) return "—";
+  if (!bytes || bytes <= 0) return "-";
   if (bytes >= 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
   if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
@@ -42,9 +42,9 @@ export function timeAgo(timestamp?: number): string {
 }
 
 export function formatDate(value?: string): string {
-  if (!value) return "—";
+  if (!value) return "-";
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "—";
+  if (Number.isNaN(date.getTime())) return "-";
   return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
@@ -108,7 +108,7 @@ export function isLight(hex: string): boolean {
 }
 
 export function shortPath(value?: string, length = 42): string {
-  if (!value) return "—";
+  if (!value) return "-";
   if (value.length <= length) return value;
   const parts = value.replace(/\\/g, "/").split("/");
   return `…/${parts.slice(-2).join("/")}`;

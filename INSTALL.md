@@ -1,19 +1,19 @@
 # Installing Cubelight
 
-Cubelight is a Windows desktop application. Pick **one** of the two files in `release\`:
+Cubelight is a Windows desktop application. Download it from the [latest release](https://github.com/PopimGamesStudios/cubelight/releases/latest) and pick **one** of the two Windows files:
 
 | File | What it does | Best for |
 | --- | --- | --- |
-| `Cubelight-1.0.0-portable.exe` | Runs immediately. Nothing is installed. | Fastest, zero decisions |
-| `Cubelight-Setup-1.0.0.exe` | Installs the app, adds a desktop + Start Menu shortcut and an uninstaller. | Everyday use |
+| `Cubelight-1.0.1-portable.exe` | Runs immediately. Nothing is installed. | Fastest, zero decisions |
+| `Cubelight-Setup-1.0.1.exe` | Installs the app, adds a desktop + Start Menu shortcut and an uninstaller. | Everyday use |
 
 Both are 64-bit builds for Windows 10 and 11. Both keep your settings, accounts and instances in `%APPDATA%\Cubelight`.
 
 ---
 
-## Option A — Portable (easiest)
+## Option A: Portable (easiest)
 
-1. Copy `Cubelight-1.0.0-portable.exe` anywhere you like (Desktop is fine).
+1. Copy `Cubelight-1.0.1-portable.exe` anywhere you like (Desktop is fine).
 2. Double-click it.
 3. Cubelight opens. Done.
 
@@ -23,15 +23,15 @@ To remove it later: close Cubelight and delete the `.exe`.
 
 ---
 
-## Option B — Setup (installs Cubelight)
+## Option B: Setup (installs Cubelight)
 
-1. Double-click `Cubelight-Setup-1.0.0.exe`.
+1. Double-click `Cubelight-Setup-1.0.1.exe`.
 2. If Windows shows **"Windows protected your PC"**, click **More info → Run anyway**.
 3. On **Choose Installation Options**, leave **Only for me** selected and click **Next**. This installs without an administrator password.
 4. On **Choose Install Location**, keep the default and click **Install**:
    `C:\Users\<you>\AppData\Local\Programs\Cubelight`
    You can pick another folder if you prefer.
-5. Wait while the progress bar finishes (usually 10–30 seconds).
+5. Wait while the progress bar finishes (usually 10-30 seconds).
 6. On **Completing Cubelight Setup**, leave **Run Cubelight** checked and click **Finish**.
 
 You now have a **Cubelight** shortcut on the desktop and in the Start Menu.
@@ -52,9 +52,9 @@ Your instances and settings are kept in `%APPDATA%\Cubelight`. Delete that folde
 
 Optional extras:
 
-- **Mods & plugins** — Modrinth works out of the box. CurseForge needs a free API key pasted in **Settings → Integrations**.
-- **Microsoft account** — needs an Azure client ID in **Settings → Integrations**. Offline profiles work without it.
-- **Tray and startup** — **Settings → Launch & Java**.
+- **Mods & plugins**: Modrinth works out of the box. CurseForge needs a free API key pasted in **Settings → Integrations**.
+- **Microsoft account**: needs an Azure client ID in **Settings → Integrations**. Offline profiles work without it.
+- **Tray and startup**: **Settings → Launch & Java**.
 
 ---
 
@@ -66,7 +66,7 @@ Optional extras:
 | Antivirus deletes or blocks the app | Add an exclusion for the Cubelight folder or the portable `.exe`. |
 | App opens to a blank window | Check `%APPDATA%\Cubelight\logs\main.log` for the error. |
 | Game will not start | Open the instance, choose **Logs**, and read the last lines. Usually a Java or memory issue. |
-| No updates are found | Auto-update only works after the repository is set in `electron-builder.yml` and a GitHub Release is published. |
+| No updates are found | Auto-update reads the public GitHub Releases feed. Make sure the release is published and not a draft. |
 
 ---
 

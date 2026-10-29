@@ -23,7 +23,6 @@ import {
   timeAgo,
 } from "@/lib/format";
 import { useApp } from "@/store/app";
-import { Logo } from "@/components/Logo";
 import { InstanceCard } from "@/components/InstanceCard";
 import { Button, Chip, EmptyState, Panel, ProgressBar, Spinner, Stat } from "@/components/ui";
 
@@ -85,20 +84,13 @@ export function HomePage() {
   const featuredState = featured ? launchStates[featured.id] : undefined;
   const featuredProgress = featured ? gameProgress[featured.id] : undefined;
   const featuredRunning = featuredState?.state === "running";
+  const serverCount = instances.length - clients.length;
 
-  const greeting = (() => {
-    const hour = new Date().getHours();
-    if (hour < 5) return "Still awake";
-    if (hour < 12) return "Good morning";
-    if (hour < 18) return "Good afternoon";
-    return "Good evening";
-  })();
-
-  const today = new Date().toLocaleDateString(undefined, {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+  const summary = instances.length
+    ? `${clients.length} client ${clients.length === 1 ? "instance" : "instances"}, ${serverCount} server ${
+        serverCount === 1 ? "instance" : "instances"
+      } and ${totalMods} installed content ${totalMods === 1 ? "file" : "files"}.`
+    : "No instances yet. Create one to install Minecraft, a mod loader and a matching Java runtime.";
 
   const updateLabel = (() => {
     switch (update.state) {
@@ -125,14 +117,11 @@ export function HomePage() {
     <div className="page page--home">
       <header className="page-head">
         <div>
-          <span className="eyebrow">Dashboard</span>
-          <h1 className="page-title">
-            {greeting}, {account?.name ?? "Player"}
-          </h1>
-          <p className="page-sub">Your worlds, mods and runtimes in one place. Pick up where you left off.</p>
+          <span className="eyebrow">Overview</span>
+          <h1 className="page-title">Dashboard</h1>
+          <p className="page-sub">{summary}</p>
         </div>
         <div className="page-head-actions">
-          <span className="date-chip">{today}</span>
           <Button variant="primary" icon={<Plus size={14} />} onClick={() => navigate("instances")}>
             New instance
           </Button>
@@ -142,10 +131,7 @@ export function HomePage() {
       {featured ? (
         <section className="hero">
           <div className="hero-main">
-            <span className="hero-eyebrow">
-              <span className="pulse-dot" />
-              {featuredRunning ? "Running now" : "Ready to play"}
-            </span>
+            <span className="hero-eyebrow">Most recent instance</span>
             <h2>{featured.name}</h2>
             <div className="hero-meta">
               <Chip tone="accent">{featured.mcVersion}</Chip>
@@ -154,12 +140,13 @@ export function HomePage() {
               <Chip>
                 {featured.installedMods.length} {featured.installedMods.length === 1 ? "mod" : "mods"}
               </Chip>
+              {featuredRunning ? <Chip tone="success">Running</Chip> : null}
             </div>
             <p className="hero-note">
               {featured.lastPlayed
                 ? `Last played ${timeAgo(featured.lastPlayed)}.`
-                : "First launch will install the runtime."}{" "}
-              {featured.installed ? "Everything is installed and ready." : "Install it before launching."}
+                : "Not launched yet."}{" "}
+              {featured.installed ? "Minecraft and the loader are installed." : "The runtime is not installed yet."}
             </p>
 
             <div className="hero-actions">
@@ -204,18 +191,30 @@ export function HomePage() {
             ) : null}
           </div>
 
-          <div className="hero-visual">
-            <div className="orbit orbit--outer" />
-            <div className="orbit orbit--inner" />
-            <div className="hero-cube" style={{ color: featured.color }}>
-              <Logo size={190} />
+          <dl className="hero-facts">
+            <div className="hero-fact">
+              <dt>Version</dt>
+              <dd>{featured.mcVersion}</dd>
             </div>
-            <span className="hero-corner hero-corner--tl">MC/{featured.mcVersion}</span>
-            <span className="hero-corner hero-corner--br">
-              {featured.loader.toUpperCase()}/{featured.installed ? "READY" : "NEW"}
-            </span>
-            <span className="hero-index">{String(instances.indexOf(featured) + 1).padStart(2, "0")}</span>
-          </div>
+            <div className="hero-fact">
+              <dt>Loader</dt>
+              <dd>{loaderLabel(featured.loader)}</dd>
+            </div>
+            <div className="hero-fact">
+              <dt>Memory</dt>
+              <dd>{formatMemory(featured.memoryMb)}</dd>
+            </div>
+            <div className="hero-fact">
+              <dt>Content</dt>
+              <dd>
+                {featured.installedMods.length} {featured.installedMods.length === 1 ? "file" : "files"}
+              </dd>
+            </div>
+            <div className="hero-fact">
+              <dt>Last played</dt>
+              <dd>{featured.lastPlayed ? timeAgo(featured.lastPlayed) : "Never"}</dd>
+            </div>
+          </dl>
         </section>
       ) : (
         <section className="hero hero--empty">
@@ -238,7 +237,7 @@ export function HomePage() {
         <Stat label="Allocated memory" value={formatMemory(totalMemory)} hint={`${formatMemory(settings.launcher.defaultMemoryMb)} default`} />
         <Stat
           label="Update"
-          value={update.state === "available" || update.state === "downloaded" ? "Ready" : update.state === "dev" ? "Dev" : update.state === "not-available" ? "Current" : "—"}
+          value={update.state === "available" || update.state === "downloaded" ? "Ready" : update.state === "dev" ? "Dev" : update.state === "not-available" ? "Current" : "Not checked"}
           hint={update.version ? `v${update.version}` : "Auto-update via GitHub"}
           accent={update.state === "available" || update.state === "downloaded"}
         />

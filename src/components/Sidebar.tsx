@@ -29,6 +29,7 @@ export function Sidebar() {
   const toggleSidebar = useApp((state) => state.toggleSidebar);
   const launchInstance = useApp((state) => state.launchInstance);
   const openAccount = useApp((state) => state.openAccount);
+  const openSettings = useApp((state) => state.openSettings);
   const launchStates = useApp((state) => state.launchStates);
 
   const recent = [...instances]
@@ -50,7 +51,7 @@ export function Sidebar() {
           title={`Launch ${recent.name}`}
         >
           <span className="quick-launch-icon" style={{ background: recent.color, color: contrastInk(recent.color) }}>
-            <span>{recent.icon}</span>
+            <span>{initials(recent.name)}</span>
           </span>
           <span className="quick-launch-copy">
             <span className="quick-launch-label">{recentBusy ? "In progress" : "Continue"}</span>
@@ -133,7 +134,13 @@ export function Sidebar() {
         </button>
 
         <div className="sidebar-legal">
-          <span>OPEN SOURCE</span>
+          <button type="button" onClick={() => openSettings("terms")}>
+            Terms
+          </button>
+          <span className="sidebar-legal-dot" />
+          <button type="button" onClick={() => openSettings("privacy")}>
+            Privacy
+          </button>
           <span className="sidebar-legal-dot" />
           <span>MIT</span>
         </div>
