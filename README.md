@@ -37,7 +37,7 @@ The download page lists every release and its files:
 Direct link to the current Windows installer:
 
 ```
-https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.1.exe
+https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.2.exe
 ```
 
 Step-by-step Windows instructions, including the SmartScreen prompt and uninstall, are in [INSTALL.md](INSTALL.md).
@@ -114,7 +114,7 @@ To publish under a different account or repository name, change all three and re
 Auto-update works by publishing a GitHub Release whose artifacts include `latest.yml` (Windows), `latest-mac.yml` (macOS) and `latest-linux.yml` (Linux).
 
 ```bash
-npm version patch        # bumps package.json and creates a v1.0.1 tag
+npm version patch        # bumps package.json and creates a v1.0.2 tag
 git push --follow-tags   # triggers .github/workflows/release.yml
 ```
 

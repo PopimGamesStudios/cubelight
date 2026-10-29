@@ -36,7 +36,7 @@ export const DEFAULT_SETTINGS: Settings = {
     updateFeedUrl: "",
     curseforgeApiKey: "",
     msClientId: "",
-    modrinthUserAgent: "Cubelight/1.0.1 (github.com/PopimGamesStudios/cubelight)",
+    modrinthUserAgent: "Cubelight/1.0.2 (github.com/PopimGamesStudios/cubelight)",
     maxConcurrentDownloads: 6,
     confirmBeforeDelete: true,
   },

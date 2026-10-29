@@ -881,7 +881,7 @@ function UpdatesSection() {
 
   return (
     <div className="settings-section">
-      <Panel eyebrow="Release" title={`Cubelight ${appInfo?.version ?? "1.0.0"}`}>
+      <Panel eyebrow="Release" title={`Cubelight ${appInfo?.version ?? "1.0.2"}`}>
         <div className="update-status">
           <div className="update-status-main">
             <Chip tone={tone}>{UPDATE_LABELS[update.state]}</Chip>
@@ -1044,7 +1044,7 @@ function AboutSection() {
             </p>
             <div className="about-chips">
               <Chip tone="accent">MIT license</Chip>
-              <Chip>v{appInfo?.version ?? "1.0.0"}</Chip>
+              <Chip>v{appInfo?.version ?? "1.0.2"}</Chip>
               <Chip>Open source</Chip>
             </div>
           </div>

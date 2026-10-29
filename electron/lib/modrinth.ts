@@ -13,7 +13,7 @@ const BASE = "https://api.modrinth.com/v2";
 
 function userAgent(): string {
   const configured = getSettings().launcher.modrinthUserAgent?.trim();
-  return configured || "Cubelight/1.0.0 (open-source Minecraft launcher)";
+  return configured || "Cubelight/1.0.2 (open-source Minecraft launcher)";
 }
 
 function projectType(type: ModType): string {

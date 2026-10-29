@@ -4,8 +4,8 @@ Cubelight is a Windows desktop application. Download it from the [latest release
 
 | File | What it does | Best for |
 | --- | --- | --- |
-| `Cubelight-1.0.1-portable.exe` | Runs immediately. Nothing is installed. | Fastest, zero decisions |
-| `Cubelight-Setup-1.0.1.exe` | Installs the app, adds a desktop + Start Menu shortcut and an uninstaller. | Everyday use |
+| `Cubelight-1.0.2-portable.exe` | Runs immediately. Nothing is installed. | Fastest, zero decisions |
+| `Cubelight-Setup-1.0.2.exe` | Installs the app, adds a desktop + Start Menu shortcut and an uninstaller. | Everyday use |
 
 Both are 64-bit builds for Windows 10 and 11. Both keep your settings, accounts and instances in `%APPDATA%\Cubelight`.
 
@@ -13,7 +13,7 @@ Both are 64-bit builds for Windows 10 and 11. Both keep your settings, accounts 
 
 ## Option A: Portable (easiest)
 
-1. Copy `Cubelight-1.0.1-portable.exe` anywhere you like (Desktop is fine).
+1. Copy `Cubelight-1.0.2-portable.exe` anywhere you like (Desktop is fine).
 2. Double-click it.
 3. Cubelight opens. Done.
 
@@ -25,7 +25,7 @@ To remove it later: close Cubelight and delete the `.exe`.
 
 ## Option B: Setup (installs Cubelight)
 
-1. Double-click `Cubelight-Setup-1.0.1.exe`.
+1. Double-click `Cubelight-Setup-1.0.2.exe`.
 2. If Windows shows **"Windows protected your PC"**, click **More info → Run anyway**.
 3. On **Choose Installation Options**, leave **Only for me** selected and click **Next**. This installs without an administrator password.
 4. On **Choose Install Location**, keep the default and click **Install**:

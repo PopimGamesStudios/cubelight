@@ -53,9 +53,13 @@ function feedConfigured(): boolean {
 function applyFeed(settings: Settings): void {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
-  autoUpdater.allowDowngrade = false;
-  autoUpdater.channel = settings.launcher.updateChannel;
+  // electron-updater names the manifest after the channel: "latest.yml" for
+  // the default channel, "beta.yml" for beta. Our "stable" setting must map to
+  // "latest", otherwise the updater asks GitHub for stable.yml and gets a 404.
+  autoUpdater.channel = settings.launcher.updateChannel === "beta" ? "beta" : "latest";
   autoUpdater.allowPrerelease = settings.launcher.updateChannel === "beta";
+  // Setting channel re-enables downgrades, so lock it afterwards.
+  autoUpdater.allowDowngrade = false;
   autoUpdater.logger = logger as never;
   if (settings.launcher.updateFeedUrl.trim()) {
     autoUpdater.setFeedURL({
@@ -87,10 +91,12 @@ export async function checkForUpdates(): Promise<UpdateStatus> {
   } catch (error) {
     logger.warn("Update check failed", error);
     const message = error instanceof Error ? error.message : String(error);
+    const missingManifest =
+      message.includes("ERR_UPDATER_CHANNEL_FILE_NOT_FOUND") || message.includes("404");
     return setStatus({
       state: "error",
-      message: message.includes("404")
-        ? "No update feed found. Set your GitHub owner/repo in electron-builder.yml or a custom feed URL."
+      message: missingManifest
+        ? "The release feed has no update manifest for the selected channel. Publish a release that includes latest.yml, or set the release channel to Stable in Settings."
         : message,
     });
   }

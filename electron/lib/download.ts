@@ -3,7 +3,7 @@ import path from "node:path";
 import { once } from "node:events";
 import { logger } from "./logger";
 
-const DEFAULT_UA = "Cubelight/1.0.0 (open-source Minecraft launcher)";
+const DEFAULT_UA = "Cubelight/1.0.2 (open-source Minecraft launcher)";
 
 function extractErrorMessage(raw: string): string {
   const trimmed = raw.trim();

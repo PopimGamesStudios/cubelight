@@ -52,7 +52,7 @@ export function TitleBar() {
           <Logo size={17} />
         </span>
         <span className="brand-name">CUBELIGHT</span>
-        <span className="brand-version">v{appInfo?.version ?? "1.0.0"}</span>
+        <span className="brand-version">v{appInfo?.version ?? "1.0.2"}</span>
       </div>
 
       <div className="titlebar-divider" />

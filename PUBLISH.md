@@ -32,8 +32,8 @@ token has expired.
 ## 3. Publish the first release
 
 ```powershell
-git tag v1.0.1
-git push origin v1.0.1
+git tag v1.0.2
+git push origin v1.0.2
 ```
 
 The tag triggers `.github/workflows/release.yml`, which builds Windows, macOS and Linux and
@@ -44,19 +44,19 @@ run takes about 10 minutes.
 ## Manual release (no Actions)
 
 1. Push the code as above.
-2. Open **Releases → Draft a new release**, tag `v1.0.1`.
+2. Open **Releases → Draft a new release**, tag `v1.0.2`.
 3. Upload from `release/`:
-   - `Cubelight-Setup-1.0.1.exe`
-   - `Cubelight-Setup-1.0.1.exe.blockmap`
+   - `Cubelight-Setup-1.0.2.exe`
+   - `Cubelight-Setup-1.0.2.exe.blockmap`
    - `latest.yml`
-   - `Cubelight-1.0.1-portable.exe`
+   - `Cubelight-1.0.2-portable.exe`
 4. Publish it. It must not stay a draft, or auto-update cannot see it.
 
 ## Resulting links
 
 ```
 https://github.com/PopimGamesStudios/cubelight/releases/latest
-https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.1.exe
+https://github.com/PopimGamesStudios/cubelight/releases/latest/download/Cubelight-Setup-1.0.2.exe
 ```
 
 ## Later releases
